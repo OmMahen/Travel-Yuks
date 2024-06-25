@@ -1,5 +1,8 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/header";
+import { DarkThemeToggle, Flowbite } from "flowbite-react";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,7 +14,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <UserProvider>
+        <body className={inter.className}>
+          <Flowbite>
+            <Header />
+            <DarkThemeToggle className="fixed bottom-0 right-0 z-50 m-4 scale-130 " />
+            {children}
+          </Flowbite>
+        </body>
+      </UserProvider>
     </html>
   );
 }
